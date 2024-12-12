@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Realtime Location Tracker</title>
+  </head>
+  <body>
+    <h1>Welcome to the Realtime Device Tracker</h1>
+    <div id="location-data">
+      <h2>Location Data</h2>
+      <ul id="location-list"></ul>
+    </div>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script>
+      const socket = io();
+
+      // Send a mock location (you can replace with real data)
+      socket.emit("send-location", { latitude: 51.505, longitude: -0.09 });
+
+      // Listen for incoming location updates
+      socket.on("receive-location", (data) => {
+        const li = document.createElement("li");
+        li.textContent = `User ID: ${data.id} - Lat: ${data.latitude}, Long: ${data.longitude}`;
+        document.getElementById("location-list").appendChild(li);
+      });
+    </script>
+  </body>
+</html>
